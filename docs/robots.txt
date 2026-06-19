@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gabborcena12.github.io/GajiWorks/sitemap.xml
