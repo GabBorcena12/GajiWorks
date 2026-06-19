@@ -1,27 +1,28 @@
 const services = [
-    ["01", "Micro / Simple One Page", "New offers and focused campaigns"],
-    ["02", "Basic Static Site", "Small businesses needing an online home"],
-    ["03", "Business Brochure / Catalog", "Businesses with several services or products"],
-    ["04", "Advanced Showcase / Catalog", "Brands with larger portfolios"],
-    ["05", "Custom Web App", "Businesses improving daily operations"],
-    ["06", "Web Automation & Data Scraping", "Teams reducing repetitive work"]
+    ["01", "Quick Launch Page", "need one focused page for an offer or campaign"],
+    ["02", "Business Starter Website", "need a professional online home"],
+    ["03", "Business Profile / Catalog", "want to present services or products clearly"],
+    ["04", "Advanced Showcase", "have a larger portfolio or catalog"],
+    ["05", "Business System", "want to improve daily operations"],
+    ["06", "Web Automation & Data Scraping", "want to reduce repetitive web tasks"]
 ];
 
 const pricing = [
-    ["Micro Site", "₱8,000 – ₱15,000", "One focused page for a service, offer, or campaign.", false],
-    ["Basic Static Site", "₱18,000 – ₱35,000", "A professional web presence for a small business.", false],
-    ["Business Brochure / Catalog", "₱35,000 – ₱75,000", "Structured services or products with inquiry paths.", true],
-    ["Advanced Showcase", "₱70,000 – ₱140,000", "A richer portfolio or catalog with more content.", false],
-    ["Custom Web App", "From ₱120,000", "A tailored business system based on your workflow.", false]
+    ["Quick Launch Page", "₱5,000 – ₱12,000", "A focused page for a new offer, service, or campaign.", false],
+    ["Business Starter Website", "₱12,000 – ₱25,000", "A professional online presence with essential business details.", false],
+    ["Business Profile / Catalog", "₱25,000 – ₱45,000", "A structured showcase for your business, services, or products.", true],
+    ["Advanced Showcase", "₱45,000 – ₱90,000", "A richer portfolio or catalog for larger content needs.", false],
+    ["Business System", "₱80,000+", "A tailored system designed around your business workflow.", false],
+    ["Web Automation & Data Scraping", "Quote-based", "A scoped solution for repetitive web tasks and approved data collection.", false]
 ];
 
 const projects = [
-    { name:"Northline Manufacturing", category:"Company Website", description:"A polished company profile that presents capabilities, certifications, and inquiry paths for prospective partners.", tags:["Responsive","Business Profile","Lead Generation"], features:["Service overview","Project gallery","Quote inquiry"], screenshots:["Homepage","Capabilities","Inquiry Flow"], cost:"₱35,000 – ₱75,000", accent:"project-blue", live:"", source:"" },
-    { name:"Harbor & Pine Living", category:"Product Catalog", description:"A calm, image-led furniture catalog designed to make collections easy to browse and compare.", tags:["Product Catalog","Mobile Ready","Visual Showcase"], features:["Category browsing","Product details","Mobile catalog"], screenshots:["Collection View","Product Details","Mobile Catalog"], cost:"₱45,000 – ₱90,000", accent:"project-cyan", live:"", source:"" },
-    { name:"LedgerPoint Advisory", category:"Financial Services", description:"A trust-focused service website that explains financial solutions clearly and drives consultation requests.", tags:["Professional Services","Trust Focused","Consultation"], features:["Service pages","Trust indicators","Consultation form"], screenshots:["Service Overview","Advisory Details","Consultation Form"], cost:"₱35,000 – ₱80,000", accent:"project-violet", live:"", source:"" },
-    { name:"SoleForm International", category:"Specialty Footwear", description:"An international orthopedic footwear showcase built around comfort, craftsmanship, and distributor support.", tags:["International","Product Showcase","Partner Support"], features:["Product showcase","Partner information","Global inquiries"], screenshots:["Brand Story","Product Range","Partner Portal"], cost:"₱55,000 – ₱110,000", accent:"project-teal", live:"", source:"" },
-    { name:"StockPilot", category:"Inventory System", description:"A focused business dashboard concept for monitoring stock, purchase activity, and low-quantity items.", tags:["Web Application","Inventory","Reporting"], features:["Stock overview","Activity tracking","Business reports"], screenshots:["Dashboard","Stock Records","Reports"], cost:"From ₱120,000", accent:"project-indigo", live:"", source:"" },
-    { name:"FieldFlow Services", category:"Service Operations", description:"A lightweight operations portal concept that keeps requests, schedules, and job updates organized.", tags:["Operations","Scheduling","Status Tracking"], features:["Request intake","Schedule view","Status updates"], screenshots:["Request Board","Schedule","Job Details"], cost:"From ₱110,000", accent:"project-sky", live:"", source:"" }
+    { name:"Northline Manufacturing", category:"Business Profile / Catalog", description:"A polished company profile that presents capabilities, certifications, and inquiry paths for prospective partners.", tags:["Responsive","Business Profile","Lead Generation"], features:["Service overview","Project gallery","Quote inquiry"], screenshots:["Homepage","Capabilities","Inquiry Flow"], cost:"₱25,000 – ₱45,000", accent:"project-blue", live:"", source:"" },
+    { name:"Harbor & Pine Living", category:"Advanced Showcase", description:"A calm, image-led furniture catalog designed to make collections easy to browse and compare.", tags:["Product Catalog","Mobile Ready","Visual Showcase"], features:["Category browsing","Product details","Mobile catalog"], screenshots:["Collection View","Product Details","Mobile Catalog"], cost:"₱45,000 – ₱90,000", accent:"project-cyan", live:"", source:"" },
+    { name:"LedgerPoint Advisory", category:"Business Starter Website", description:"A trust-focused service website that explains financial solutions clearly and drives consultation requests.", tags:["Professional Services","Trust Focused","Consultation"], features:["Service pages","Trust indicators","Consultation form"], screenshots:["Service Overview","Advisory Details","Consultation Form"], cost:"₱12,000 – ₱25,000", accent:"project-violet", live:"", source:"" },
+    { name:"SoleForm International", category:"Advanced Showcase", description:"An international orthopedic footwear showcase built around comfort, craftsmanship, and distributor support.", tags:["International","Product Showcase","Partner Support"], features:["Product showcase","Partner information","Global inquiries"], screenshots:["Brand Story","Product Range","Partner Portal"], cost:"₱45,000 – ₱90,000", accent:"project-teal", live:"", source:"" },
+    { name:"StockPilot", category:"Business System", description:"A focused business dashboard concept for monitoring stock, purchase activity, and low-quantity items.", tags:["Web Application","Inventory","Reporting"], features:["Stock overview","Activity tracking","Business reports"], screenshots:["Dashboard","Stock Records","Reports"], cost:"₱80,000+", accent:"project-indigo", live:"", source:"" },
+    { name:"FieldFlow Services", category:"Business System", description:"A lightweight operations portal concept that keeps requests, schedules, and job updates organized.", tags:["Operations","Scheduling","Status Tracking"], features:["Request intake","Schedule view","Status updates"], screenshots:["Request Board","Schedule","Job Details"], cost:"₱80,000+", accent:"project-sky", live:"", source:"" }
 ];
 
 const escapeHtml = value => String(value).replace(/[&<>'"]/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"})[character]);
@@ -30,7 +31,7 @@ function renderServices() {
     document.querySelector("#services-grid").innerHTML = services.map(([number, title, bestFor]) => `
         <article class="service-card service-card-compact reveal">
             <div class="service-number">${number}</div>
-            <div><h3>${escapeHtml(title)}</h3><p class="best-for"><span>Best for</span> ${escapeHtml(bestFor)}</p></div>
+            <div><h3>${escapeHtml(title)}</h3><p class="best-for"><span>For clients who</span> ${escapeHtml(bestFor)}</p></div>
         </article>`).join("");
 }
 
@@ -92,7 +93,7 @@ function openProject(index) {
             <div class="modal-copy modal-project-details"><span class="project-category">${escapeHtml(project.category)}</span><h2 id="project-modal-title">${escapeHtml(project.name)}</h2><p>${escapeHtml(project.description)}</p>
                 <div class="modal-tags" aria-label="Project tags">${project.tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
                 <h3>Key features</h3><ul>${project.features.map(feature => `<li><span>✓</span>${escapeHtml(feature)}</li>`).join("")}</ul>
-                <div class="project-cost"><small>Estimated similar project cost</small><strong>${escapeHtml(project.cost)}</strong><div class="pricing-tags"><span>Starting Estimate</span><span>Negotiable</span><span>Discount Available</span><span>Scope-Based</span></div><p>Final pricing may vary depending on scope, timeline, content, features, and support package.</p></div>
+                <div class="project-cost"><small>Estimated similar project cost</small><strong>${escapeHtml(project.cost)}</strong><div class="pricing-tags"><span>Starting Estimate</span><span>Negotiable</span><span>Scope-Based</span><span>Discount Available</span></div><p>Final pricing may vary depending on scope, timeline, content, features, and support package.</p></div>
                 ${links ? `<div class="hero-actions modal-actions">${links}</div>` : ""}
             </div>
         </section>
