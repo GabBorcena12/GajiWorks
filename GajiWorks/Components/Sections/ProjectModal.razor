@@ -11,7 +11,7 @@
                 <div class="modal-screenshot @Project.AccentClass @(IsImageScreenshot(Project.Screenshots[selectedScreenshot]) ? "has-image" : IsVideoPreview(Project.Screenshots[selectedScreenshot]) ? "has-video" : null)">
                     @if (IsImageScreenshot(Project.Screenshots[selectedScreenshot]))
                     {
-                        <img class="modal-screenshot-image" src="@Project.Screenshots[selectedScreenshot]" alt="@Project.Name - @GetScreenshotLabel(Project.Screenshots[selectedScreenshot], selectedScreenshot)" />
+                        <img class="modal-screenshot-image" src="@Project.Screenshots[selectedScreenshot]" alt="@Project.Name - @GetScreenshotLabel(Project.Screenshots[selectedScreenshot], selectedScreenshot)" decoding="async" />
                     }
                     else if (IsVideoPreview(Project.Screenshots[selectedScreenshot]))
                     {
@@ -45,7 +45,7 @@
                                 aria-pressed="@((selectedScreenshot == index).ToString().ToLowerInvariant())">
                             @if (IsImageScreenshot(Project.Screenshots[index]))
                             {
-                                <img src="@Project.Screenshots[index]" alt="" />
+                                <img src="@Project.Screenshots[index]" alt="" loading="lazy" decoding="async" />
                             }
                             else if (IsVideoPreview(Project.Screenshots[index]))
                             {

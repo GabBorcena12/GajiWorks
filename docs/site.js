@@ -33,7 +33,7 @@ const compactEstimatedCost = cost => cost.replace(/,000/g, "k");
 function screenshotMarkup(project, index) {
     const screenshot = project.screenshots[index];
     if (isImageScreenshot(screenshot)) {
-        return `<img class="modal-screenshot-image" src="${escapeHtml(screenshot)}" alt="${escapeHtml(`${project.name} - ${screenshotLabel(screenshot, index)}`)}"><span class="screenshot-caption">${escapeHtml(screenshotLabel(screenshot, index))}</span>`;
+        return `<img class="modal-screenshot-image" src="${escapeHtml(screenshot)}" alt="${escapeHtml(`${project.name} - ${screenshotLabel(screenshot, index)}`)}" decoding="async"><span class="screenshot-caption">${escapeHtml(screenshotLabel(screenshot, index))}</span>`;
     }
     if (isVideoPreview(screenshot)) {
         const poster = project.screenshots.find(isImageScreenshot) || "";
@@ -63,7 +63,7 @@ function renderPricing() {
 function projectCard(project, index) {
     return `<div class="portfolio-grid-item ${index >= 4 ? "is-hidden" : ""}" aria-hidden="${index >= 4}">
         <article class="project-card reveal">
-            <div class="project-card-preview"><img src="${escapeHtml(project.cardPreview)}" alt="${escapeHtml(`${project.name} preview`)}"></div>
+            <div class="project-card-preview"><img src="${escapeHtml(project.cardPreview)}" alt="${escapeHtml(`${project.name} preview`)}" loading="lazy" decoding="async"></div>
             <div class="project-content"><span class="project-category">${escapeHtml(project.category)}</span><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.description)}</p>
                 <div class="feature-tags">${project.tags.slice(0, 3).map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
                 <div class="project-price-hint"><span>Similar project: <strong>${escapeHtml(compactEstimatedCost(project.cost))}</strong></span><em>Negotiable</em></div>
@@ -131,7 +131,7 @@ function openProject(index) {
             <button class="modal-close" type="button" aria-label="Close project details">×</button>
             <div class="modal-gallery">
                 <div class="modal-screenshot ${project.accent} ${isImageScreenshot(project.screenshots[0]) ? "has-image" : isVideoPreview(project.screenshots[0]) ? "has-video" : ""}">${screenshotMarkup(project, 0)}</div>
-                <div class="screenshot-thumbnails" aria-label="Project media">${project.screenshots.map((shot, shotIndex) => `<button class="screenshot-thumbnail ${project.accent} ${shotIndex === 0 ? "active" : ""}" type="button" data-screenshot-index="${shotIndex}" aria-label="View ${escapeHtml(screenshotLabel(shot, shotIndex))}" aria-pressed="${shotIndex === 0}">${isImageScreenshot(shot) ? `<img src="${escapeHtml(shot)}" alt="">` : isVideoPreview(shot) ? `<span class="video-thumbnail-icon" aria-hidden="true">▶</span>` : `<span>${shotIndex + 1}</span>`}<small>${escapeHtml(screenshotLabel(shot, shotIndex))}</small></button>`).join("")}</div>
+                <div class="screenshot-thumbnails" aria-label="Project media">${project.screenshots.map((shot, shotIndex) => `<button class="screenshot-thumbnail ${project.accent} ${shotIndex === 0 ? "active" : ""}" type="button" data-screenshot-index="${shotIndex}" aria-label="View ${escapeHtml(screenshotLabel(shot, shotIndex))}" aria-pressed="${shotIndex === 0}">${isImageScreenshot(shot) ? `<img src="${escapeHtml(shot)}" alt="" loading="lazy" decoding="async">` : isVideoPreview(shot) ? `<span class="video-thumbnail-icon" aria-hidden="true">▶</span>` : `<span>${shotIndex + 1}</span>`}<small>${escapeHtml(screenshotLabel(shot, shotIndex))}</small></button>`).join("")}</div>
             </div>
             <div class="modal-copy modal-project-details"><span class="project-category">${escapeHtml(project.category)}</span><h2 id="project-modal-title">${escapeHtml(project.name)}</h2><p>${escapeHtml(project.description)}</p>
                 <div class="modal-tags" aria-label="Project tags">${project.tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
@@ -306,3 +306,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-placeholder-link]").forEach(link => link.addEventListener("click", event => event.preventDefault()));
     document.addEventListener("keydown", event => { if (event.key === "Escape") closeProject(); });
 });
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        const serviceWorkerUrl = new URL("service-worker.js", document.baseURI);
+        navigator.serviceWorker.register(serviceWorkerUrl, { scope: "./" }).catch(error => {
+            console.warn("Static asset caching is unavailable.", error);
+        });
+    });
+}
